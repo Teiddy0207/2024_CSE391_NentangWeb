@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+hr {
+
+    background-color: rgb(73, 69, 69);
+    height: 2px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.Basic-infor-head {
+    margin: 20px;
+
+    margin: 0 auto;
+}
+
+.content {
+    margin: 20px;
+
+    display: grid;
+    grid-template-columns: 200px 500px;
+    ;
+}
+
+.content div {
+    margin: 3px;
+}
+
+
+
+.Main-content {
+    margin: 30px;
+
+}
+
+#gender {
+    text-align: left;
+    /* Thêm thuộc tính này để căn lề phải */
+    margin-top: 35px
+}
+.id{
+    font-family: "Jersey 25 Charted", sans-serif;
+    font-size: 50px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+}
