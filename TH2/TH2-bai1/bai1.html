@@ -1,0 +1,43 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+    <form action="">
+        <input type="text" id="number" value="0">
+        <input type="button" value="inKetQua" onclick="print_number()">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+    function print_number(){
+        // Lấy giá trị từ ô input
+        let n = document.getElementById('number').value; // lay gia tri trong the input
+        //ep kieu sang kieu int
+        n = parseInt(n);
+
+        // Kiểm tra nếu n không phải là số
+        if(isNaN(n)) {
+            document.getElementById('result').innerHTML = "Vui lòng nhập một số hợp lệ";
+            return;
+        }
+
+        // Khởi tạo biến chứa kết quả
+        let result = "";
+
+        // Vòng lặp để tạo ra dãy số nhỏ hơn giá trị nhập vào
+        for(let i = 0; i < n; i++){
+            result += i + ",  ";
+        }
+
+        // Hiển thị kết quả
+        document.getElementById('result').innerHTML = result;
+    }
+    </script>
+    </body>
+    </html>
