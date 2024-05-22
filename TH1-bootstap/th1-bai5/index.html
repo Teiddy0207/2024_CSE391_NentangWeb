@@ -1,164 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">TLU</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Trang chủ</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Quản lý sinh viên</a>
-                </li>
-                
-            </ul>
-            <form class="d-flex ms-auto">
-                <input class="form-control me-2" type="search" placeholder="Nhập nội dung tìm kiếm" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Tìm</button>
-            </form>
-        </div>
-    </nav>
 
-   <!-- Day la body -->
-   <div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
-					</div>
-					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Add New Employee</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons"></i> <span>Delete</span></a>						
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<style>
+	xl {
+		width: 100%;
+		padding-right: 15px;
+		padding-left: 15px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	div {
+		display: block;
+		unicode-bidi: isolate;
+	}
+	.table-responsive {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		
+	}
+	.table-title {
+
+		background: #435d7d;
+		color: #fff;
+		padding: 16px 30px;
+display: block;
+justify-content: end;
+		margin: -20px -25px 10px;
+		border-radius: 3px 3px 0 0;
+	}
+	.table-wrapper {
+		background: #fff;
+		padding: 20px 25px;
+		border-radius: 3px;
+		min-width: 1000px;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	}
+	.table-title {
+		padding-bottom: 15px;
+		background: #435d7d;
+		color: #fff;
+		padding: 16px 30px;
+		min-width: 100%;
+		margin: -20px -25px 10px;
+		border-radius: 3px 3px 0 0;
+	}
+</style>
+
+<body>
+
+
+	<!-- Day la body -->
+	<div class="container-xl ">
+		<header style="margin-bottom: 100px ">
+			<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light" style =" box-shadow: 1px 5px 15px 5px #AAA;">
+			  <a class="navbar-brand" href="#">TLU</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse f-flex justify-content-between" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+				
+				
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Quản Lý Nhân Viên</a>
+					  </li>
+					<li class="nav-item active">
+					<a class="nav-link" href="#">Trang chủ<span class="sr-only">(current)</span></a>
+				  </li>
+				
+				
+				</ul>
+				<form class="form-inline mt-2 mt-md-0 d-flex p-2">
+				  <input class="form-control mr-sm-2" type="text" placeholder="Nhập nội dung tìm kiếm" aria-label="Search">
+				  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm</button>
+				</form>
+			  </div>
+			</nav>
+		  </header>
+
+
+		
+		
+		
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title ">
+					<div class="row  ">
+						<div class="col-sm-6 ">
+							<h2>Quản lý nhân viên</h2>
+						</div>
+						<div class="col-sm-6 d-flex justify-content-end">	
+							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
+									class="material-icons"></i> <span>Xóa</span></a>
+							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+									class="material-icons"></i> <span>Thêm nhân viên</span></a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll" data-sider-select-id="77d7cd8a-9216-4155-a5b5-f5f6e06cf226">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1" data-sider-select-id="88a37811-6581-4ad4-808b-90f4d90d37a3">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1" data-sider-select-id="838cefc5-a684-4572-ab73-9921b70fad66">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td data-sider-select-id="d1605289-e9e1-45df-bffd-9a7a7ffe4c1a">dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-						<td>Fran Wilson</td>
-						<td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-						<td>(204) 619-5731</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>
-						</td>
-					</tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-						<td>Martin Blank</td>
-						<td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-						<td>(480) 631-2097</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a>
-						</td>
-					</tr> 
-				</tbody>
-			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="selectAll">
+									<label for="selectAll"></label>
+								</span>
+							</th>
+							<th>Họ và tên</th>
+							<th>Thư điện tử</th>
+							<th>Địa chỉ</th>
+							<th>Số điện thoại</th>
+							<th>Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox1" name="options[]" value="1">
+									<label for="checkbox1"></label>
+								</span>
+							</td>
+							<td>Nguyễn Văn A</td>
+							<td>nguyenvanA@example.com</td>
+							<td>Hà Nội, Việt Nam</td>
+							<td>0123456789</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="" data-original-title="Edit"><i
+										class="fa-solid fa-pen text-warning"></i></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title=""
+									data-original-title="Delete"><i class="fa-solid fa-x text-danger"></i></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox2" name="options[]" value="1">
+									<label for="checkbox2"></label>
+								</span>
+							</td>
+							<td>Trần Thị B</td>
+							<td>tranthib@example.com</td>
+							<td>tp Hồ Chí minh, Việt Nam</td>
+							<td>07817982709</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="" data-original-title="Edit"><i
+										class="fa-solid fa-pen text-warning"></i></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title=""
+									data-original-title="Delete"><i class="fa-solid fa-x text-danger"></i></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox3" name="options[]" value="1">
+									<label for="checkbox3"></label>
+								</span>
+							</td>
+							<td>Lê Văn C</td>
+							<td>LeVanC@example.com</td>
+							<td>Đà Nẵng, Việt Nam</td>
+							<td>0867698790</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="" data-original-title="Edit"><i
+										class="fa-solid fa-pen text-warning"></i></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title=""
+									data-original-title="Delete"><i class="fa-solid fa-x text-danger"></i></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox4" name="options[]" value="1">
+									<label for="checkbox4"></label>
+								</span>
+							</td>
+							<td>Phạm Thị D</td>
+							<td>PhamThiD@mail.com</td>
+							<td>Cần Thơ , Việt Nam</td>
+							<td>219808903</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="" data-original-title="Edit"><i
+										class="fa-solid fa-pen text-warning"></i></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title=""
+									data-original-title="Delete"><i class="fa-solid fa-x text-danger"></i></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox5" name="options[]" value="1">
+									<label for="checkbox5"></label>
+								</span>
+							</td>
+							<td>Đặng Văn E</td>
+							<td>DangVanE@example.com</td>
+							<td>Hải Phòng, Việt Nam</td>
+							<td>099098000</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="" data-original-title="Edit"><i
+										class="fa-solid fa-pen text-warning"></i></i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title=""
+									data-original-title="Delete"><i class="fa-solid fa-x text-danger"></i></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="clearfix d-flex ">
+					<div class="hint-text p-2 w-100">Hiển thị <b>5</b> trên <b>25</b> bản ghi </div>
+					<ul class="pagination p-2 flex-shrink-1">
+						<li class="page-item disabled"><a href="#">Trước</a></li>
+						<li class="page-item"><a href="#" class="page-link">1</a></li>
+						<li class="page-item"><a href="#" class="page-link">2</a></li>
+						<li class="page-item active"><a href="#" class="page-link">3</a></li>
+						<li class="page-item"><a href="#" class="page-link">4</a></li>
+						<li class="page-item"><a href="#" class="page-link">5</a></li>
+						<li class="page-item"><a href="#" class="page-link">Sau</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>        
-</div>
-    
-   
+	</div>
+
+
 </html>
