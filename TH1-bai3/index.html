@@ -1,78 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Information Form</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>BAi 2</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <style>
-    * {
-        margin: 0;
-
-    }
-
-    hr {
+    table {
         width: 100%;
-        background-color: rgb(73, 69, 69);
-        height: 2px;
+        border-collapse: collapse;
+        text-align: center;
+        height: 00px;
     }
-
-    .Basic-infor-head {
-        margin: 20px;
+    
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
     }
-
-    .content {
-        margin: 10px;
-        margin-left: 30px;
-display: flex;
-    }
-    .content-left{
-
-    }
-    .Main-content{
-        margin-left: 50px;
+    
+    th {
+        background-color: #f2f2f2;
     }
 </style>
-
 <body>
-    <form action="">
-        <div class="header">
-
-            <div class="Basic-infor-head">
-                <p>Basic infor</p>
-                <hr>
-                <div class="content">
-                    <div class="content-left">
-                        <div>Employee id</div>
-                        <div>Last Name </div>
-                        <div>First Name</div>
-                        <div>Gender</div>
-                        <div>date</div>
-                    </div>
-                    <div class="Main-content">
-                        <div>9</div>
-                        <div>Ngo Quang Anh</div>
-                        <input type="text" style="width: 90%;" placeholder="Anne">
-                      <br>  <input type="radio" name="option" />Male
-                       <br> <input type="radio" name="option" />Female
-                       <br> <input type="radio" name="option" />Female
-                       <br> <input type="radio" name="option" />Female
-                    <br><input type="date" name="" id="">
-                    </div>
-                </div>
-                <div>
-
-                </div>
-            </div>
-        </div>
-
-
-
-    </form>
-
-    </div>
+<table>
+    <tr>
+        <th  colspan="2" rowspan="2">Student</th>    
+        <th colspan="4">Exam</th>
+        <th colspan="4">2nd Exam</th>
+        <th rowspan="2" colspan="2" >Final Grade </th>
+    </tr>
+ <tr>
+    <th>Q1</th>
+    <th>Q2</th>
+    <th>Q3</th>
+    <th rowspan="2">grade</th>
+    <th>Q1</th>
+    <th>Q2</th>
+    <th>Q3</th>
+    <th rowspan="2">grade</th>
+ </tr>
+ <th>Code</th>
+ <th>Name</th>
+ <th>8</th>
+ <th>7</th>
+ <th>5</th>
+ <th>6</th>
+ <th>7</th>
+ <th>8</th>
+ <th>NR</th>
+ <th>R</th>
+ <tr>
+    <th>80501591</th>
+    <th>John</th>
+    <th>70%</th>
+    <th>100%</th>
+    <th>100%</th>
+    <th>17.6</th>
+    <th colspan="4"></th>
+    <th>17.6</th>
+    <th>8</th>
+ </tr>
+ <tr>
+    <th>80501562</th>
+    <th>Mary</th>
+    <th>10%</th>
+    <th>50%</th>
+    <th>50%</th>
+    <th>6.8</th>
+    <th>100%</th>
+    <th>100%</th>
+    <th>100%</th>
+    <th>16.5</th>
+    <th>16.5</th>
+    <th>17</th>
+ </tr>
+ <th>80501563</th>
+ <th>Claire</th>
+ <th colspan="4"></th>
+ <th>50%</th>
+ <th>50%</th>
+ <th>50%</th>
+ <th>10.0</th>
+ <th>10.0</th>
+ <th>10</th>
+   
+</table>
 </body>
-
 </html>
