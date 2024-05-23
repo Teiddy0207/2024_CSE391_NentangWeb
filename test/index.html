@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+   
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        $().ready(function() {
+            $.validator.addMethod("validatePassword", function (value, element) {
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            }, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");
+           $("#demoForm").validate({
+               onfocusout: false,
+               onkeyup: false,
+               onclick: false,
+               rules: {
+                   "user": {
+                       required: true,
+                       email:true,
+                       maxlength: 15
+                   },
+                   "password": {
+                       required: true,
+                       validatePassword:true,
+                       minlength: 8
+                   },
+                   "re-password": {
+                       equalTo: "#password",
+                       minlength: 8
+                       
+                   }
+               },
+               messages: {
+                   "user": {
+                       required: "Bắt buộc nhập username",
+                       email: "Vui lòng nhập email đúng định dạng.",
+                       maxlength: "Hãy nhập tối đa 15 ký tự"
+                   },
+                   "password": {
+                       required: "Bắt buộc nhập password",
+                       minlength: "Hãy nhập ít nhất 8 ký tự"
+                   },
+                   "re-password": {
+                       equalTo: "Hai password phải giống nhau",
+                       minlength: "Hãy nhập ít nhất 8 ký tự"
+                   }
+               }
+           });
+           
+       });
+       
+    </script>
+</head>
+<body>
+	
+	<div id="main">
+	    <form  id="demoForm" action="">
+		<p>
+			<label>Email</label>
+			<input name="user" type="text" />
+		</p>
+		<p>
+			<label>Password</label>
+			<input id="password" type="password" name="password" />
+		</p>
+		<p>
+			<label>Re-Password</label>
+			<input id="re-password" type="password" name="re-password" />
+		</p>
+		<p>
+		<input type="submit" value="Register" id="register"/>
+		</p>
+		
+	    </form>
+        <form action="?" method="POST">
+            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+            <br/>
+            <input type="submit" value="Submit">
+          </form>
+	</div>
+	</body>
+
+</html>
