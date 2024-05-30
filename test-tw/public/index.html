@@ -1,0 +1,344 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+</head>
+<style>
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #addEmployeeForm {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        margin-top: 100px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        animation: slideDown 0.5s forwards;
+        z-index: 1000;
+    }
+
+    @keyframes slideDown {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -100%);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+</style>
+
+<body>
+    <div class="container mx-auto  py-2 ">
+        <div class="header flex justify-between mb-3 border border-black py-4 ">
+            <div class="nav-left flex gap-5">
+                <div class="logo font-bold">TLU</div>
+                <div>Trang chu</div>
+                <div>Quan ly nhan vien</div>
+
+            </div>
+            <form action="" class="flex items-center gap-2">
+                <input type="text" class="border p-2 bg-slate-400 text-black" placeholder="tim kiem o day">
+                <button class="bg-blue-500 text-white px-4 py-2">Tim</button>
+            </form>
+
+        </div>
+        <div class="main">
+            <div class="main-header flex justify-between border border-black p-4 mb-4">
+                <div class="left font-bold">
+                    Quan ly nhan vien
+                </div>
+                <div class="right flex gap-2">
+                    <button id="removeEmployeeButton" class="bg-red-500 text-white px-4 py-2 ">Xoa</button>
+                    <button id="addEmployeeButton" class="bg-green-500 text-white px-4 py-2">Them</button>
+                </div>
+            </div>
+
+            <table id="employeeTable" class="w-full border-collapse border">
+                <tr class=" border">
+                    <th class="border p-2">Ho va ten</th>
+                    <th class="border p-2">Thu dien tu</th>
+                    <th class="border p-2">Dia chi</th>
+                    <th class="border p-2">So dien thoai</th>
+                </tr>
+
+            </table>
+        </div>
+        <div class="footer">
+
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <form  id="addEmployeeForm" action="">
+            <div class="form-group mb-4">
+                <label for="name" class="block mb-2">Ho va ten:</label>
+                <input type="text" id="name" class="form-control border p-2 w-full">
+            </div>
+            <div class="form-group mb-4">
+                <label  class="block mb-2">Thu dien tu:</label>
+                <input type="email" id="email" class="form-control border p-2 w-full">
+            </div>
+            <div class="form-group mb-4">
+                <label for="address" class="block mb-2">Dia chi:</label>
+                <input type="text" id="address" class="form-control border p-2 w-full">
+            </div>
+            <div class="form-group mb-4">
+                <label for="phone" class="block mb-2">So dien thoai:</label>
+                <input type="text" id="phone" class="form-control border p-2 w-full">
+            </div>
+            <button type="submit" class="btn btn-primary bg-blue-500 text-white px-4 py-2">Them</button>
+        </form>
+
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let addEmployeeButton = document.getElementById('addEmployeeButton');
+            let overlay = document.getElementById('overlay');
+            let form = document.getElementById('addEmployeeForm');
+            let table = document.getElementById('employeeTable');
+
+
+            load();
+
+            addEmployeeButton.addEventListener('click', function () {
+                if (form.style.display === 'none' || form.style.display === '') {
+                    form.style.display = 'block';
+                    overlay.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
+                    overlay.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', function (event) {
+
+                event.preventDefault();
+                // Lấy giá trị từ các input
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let address = document.getElementById('address').value;
+                let phone = document.getElementById('phone').value;
+                addEmployeeToTable(name, email, address, phone)
+
+
+                saveData();
+                form.style.display = 'none';
+                overlay.style.display = 'none';
+
+                // Xóa nội dung các input
+                form.reset();
+            })
+            function addEmployeeToTable(name, email, address, phone) {
+                let newRow = table.insertRow();
+
+
+                let nameCell = newRow.insertCell(0);
+                let emailCell = newRow.insertCell(1);
+                let addressCell = newRow.insertCell(2);
+                let phoneCell = newRow.insertCell(3);
+
+                nameCell.textContent = name;
+                emailCell.textContent = email;
+                addressCell.textContent = address;
+                phoneCell.textContent = phone;
+            }
+
+
+            function saveData() {
+                let data = [];
+                for (let i = 1, row; row = table.rows[i]; i++) {
+                    let rowData = {
+                        name: row.cells[0].textContent,
+                        email: row.cells[1].textContent,
+                        address: row.cells[2].textContent,
+                        phone: row.cells[3].textContent
+                    }
+                    data.push(rowData);
+                }
+                localStorage.setItem('data', JSON.stringify(data))
+            }
+            function load() {
+                let data = JSON.parse(localStorage.getItem('data')) || [];
+                data.forEach(employee => {
+                    addEmployeeToTable(employee.name, employee.email, employee.address, employee.phone)
+                });
+            }
+
+        });
+        $().ready(function() {
+            $.validator.addMethod("validatePassword", function (value, element) {
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+            }, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");
+            $("#addEmployeeForm").validate({
+                onfocusout: false,
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    "email": {
+                        required: true,
+                        email:true,
+                        maxlength: 15
+                    },
+                  
+                },
+                messages: {
+                    "email": {
+                        required: "Bắt buộc nhập username",
+                        email: "Vui lòng nhập email đúng định dạng.",
+                        maxlength: "Hãy nhập tối đa 15 ký tự"
+                    },
+                  
+                }
+            });
+console.log("loi gi day")
+          });
+    </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ứng dụng quản lý sinh viên</title>
+    <link rel="stylesheet" href="./js.js">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="container mx-auto p-4">
+
+<h2 class="text-2xl font-bold mb-4">Thêm sinh viên</h2>
+<form id="formSinhVien" class="mb-8">
+    <div class="mb-4">
+        <label for="hoTen" class="block text-gray-700 text-sm font-bold mb-2">Họ tên:</label>
+        <input type="text" id="hoTen" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="maSV" class="block text-gray-700 text-sm font-bold mb-2">Mã SV:</label>
+        <input type="text" id="maSV" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="ngaySinh" class="block text-gray-700 text-sm font-bold mb-2">Ngày sinh:</label>
+        <input type="date" id="ngaySinh" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="mb-4">
+        <label for="lop" class="block text-gray-700 text-sm font-bold mb-2">Lớp:</label>
+        <input type="text" id="lop" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Thêm
+        </button>
+    </div>
+</form>
+
+<h2 class="text-2xl font-bold mb-4">Danh sách sinh viên</h2>
+<table id="bangSinhVien" class="table-auto w-full">
+    <thead>
+    <tr>
+        <th class="px-4 py-2">Họ tên</th>
+        <th class="px-4 py-2">Mã SV</th>
+        <th class="px-4 py-2">Ngày sinh</th>
+        <th class="px-4 py-2">Lớp</th>
+        <th class="px-4 py-2">Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script> document.getElementById("formSinhVien").addEventListener("submit", function(event) {
+    event.preventDefault(); // Ngăn chặn form submit mặc định
+
+    // Lấy dữ liệu từ form
+    // lay du lieu theo id 
+let hoTen = document.getElementById('hoTen').value;
+let maSV = document.getElementById('maSV').value;
+let ngaySinh = document.getElementById('ngaySinh').value;
+let lop = document.getElementById('lop').value;
+    // Validate dữ liệu
+
+    if (!hoTen || !maSV || !ngaySinh || !lop) {
+        alert("Vui lòng điền đầy đủ thông tin.");
+        return;
+    }
+    // luu tru danh sach sinh vien vao loval
+  let danhSachSinhVien = JSON.parse(localStorage.getItem('danhSachSinhVien')) || [];
+     // doc du lieu  
+  let newSinhVien = {hoTen,maSV,ngaySinh,lop};
+  danhSachSinhVien.push(newSinhVien);
+// luu du lieu vao bang
+  localStorage.setItem('danhSachSinhVien', JSON.stringify(danhSachSinhVien))//;luu du lieu vao bang
+
+
+  hienThiDanhSachSinhVien();
+
+  //document.getElementById('formSinhVien').reset()
+});
+
+// Hàm hiển thị danh sách sinh viên từ localStorage khi trang tải
+// vua them sinh vien vao bang vua load sinh vien
+function hienThiDanhSachSinhVien() {
+    let danhSachSinhVien = JSON.parse(localStorage.getItem('danhSachSinhVien')) || []
+    let bangSinhVien = document.getElementById('bangSinhVien');
+
+
+    bangSinhVien.innerHTML = 
+    `
+        <tr>
+            <th>Họ tên</th>
+            <th>Mã SV</th>
+            <th>Ngày sinh</th>
+            <th>Lớp</th>
+            <th>Hành động</th>
+        </tr>
+    `;
+    danhSachSinhVien.forEach((sinhVien,index) => {
+      let row = bangSinhVien.insertRow()
+      row.insertCell(0).innerText = sinhVien.hoTen;
+      row.insertCell(1).innerText = sinhVien.maSV;
+      row.insertCell(2).innerText = sinhVien.ngaySinh;
+      row.insertCell(3).innerText = sinhVien.lop;
+    })
+
+
+}
+
+// Gọi hàm hiển thị danh sách khi trang tải
+hienThiDanhSachSinhVien();</script>
+
+</body>
+</html>
+
+
