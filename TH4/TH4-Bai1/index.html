@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ứng dụng quản lý sinh viên</title>
+    <style>
+        /* CSS cơ bản cho giao diện */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        input[type=text], input[type=date] { width: 100%; padding: 8px; }
+        button { padding: 8px 16px; background-color: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+<h2>Thêm sinh viên</h2>
+<form id="formSinhVien">
+    Họ tên: <input type="text" id="hoTen"><br><br>
+    Mã SV: <input type="text" id="maSV"><br><br>
+    Ngày sinh: <input type="date" id="ngaySinh"><br><br>
+    Lớp: <input type="text" id="lop"><br><br>
+    <button type="submit">Thêm</button>
+</form>
+
+<h2>Danh sách sinh viên</h2>
+<table id="bangSinhVien">
+    <tr>
+        <th>Họ tên</th>
+        <th>Mã SV</th>
+        <th>Ngày sinh</th>
+        <th>Lớp</th>
+        <th>Hành động</th>
+    </tr>
+</table>
+
+<script>
+let form = document.getElementById('formSinhVien')
+form.addEventListener('submit', function(event) {
+
+    event.preventDefault();
+        let hoTen = document.getElementById('hoTen').value;
+        let maSV = document.getElementById('maSV').value;
+        let date = document.getElementById('ngaySinh').value;
+        let lop = document.getElementById('lop').value;
+
+        ThemSinhVienVaoBang(hoTen,maSV,date,lop)
+
+        luuSinhVien();
+    })
+function ThemSinhVienVaoBang(hoTen,maSV,date,lop){
+    let table = document.getElementById('bangSinhVien')
+    let row = table.insertRow();
+
+    let hoTenCell = row.insertCell(0);
+    let maSVcell = row.insertCell(1);
+    let datecell = row.insertCell(2);
+    let lopcell = row.insertCell(3);
+
+    hoTenCell.textContent = hoTen;
+    maSVcell.textContent = maSV;
+    datecell.textContent = date;
+    lopcell.textContent = lop;
+}
+
+function luuSinhVien(){
+    let studentData = [];
+
+    for(let i = 1, row; row = table.rows[i];i++){
+        let rowData = {
+            hoTen: row.cells[0].textContent,
+            maSV: row.cells[1].textContent,
+            date: row.cells[2].textContent,
+            lop: row.cells[3].textContent
+        }
+        studentData.push(rowData)
+    };
+    localStorage.setItem('studentData',JSON.stringify(studentData))
+
+}
+
+
+function hienThiDanhSachSinhVien() {
+    let studentData = JSON.parse(localStorage.getItem('studentData')) || [];
+    studentData.forEach(Student => {
+        ThemSinhVienVaoBang(Student.hoTen, Student.maSV, Student.date, Student.lop);
+    });
+  }
+</script>
+
+</body>
+</html>

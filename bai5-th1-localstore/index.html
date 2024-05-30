@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+ <script>
+  $().ready(function() {
+    $.validator.addMethod("validatePassword", function (value, element) {
+        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+    }, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");
+    $("#addEmployeeForm").validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        rules: {
+            "email": {
+                required: true,
+                email:true,
+                maxlength: 15
+            },
+          
+        },
+        messages: {
+            "email": {
+                required: "Bắt buộc nhập username",
+                email: "Vui lòng nhập email đúng định dạng.",
+                maxlength: "Hãy nhập tối đa 15 ký tự"
+            },
+          
+        }
+    });
+    
+  });
+ </script>
+  </head>
+<body>
+ 
+<div class="container">
+<div class="header">
+
+<div class="nav-left">
+  <div class="logo">
+TLU
+  </div>
+  <div>Trang chu</div>
+  <div>Quan ly nhan vien</div>
+</div>
+<form action="">
+<input type="text">
+<button>Tim</button>
+</form>
+</div>
+<div class="main">
+<div class="main-header">
+  <div class="left">
+    Quan ly nhan vien
+  </div>
+  <div class="right">
+    <button>Xoa</button>
+    <button  id="addEmployeeButton">Them nhan vien</button>
+  </div>
+</div>
+<table id="employeeTable">
+  <tr>
+    <th >Ho va ten</th>
+    <th>Thu dien tu</th>
+    <th>Dia chi</th>
+    <th>So dien thoai</th>
+  </tr>
+</table>
+</div>
+<div class="footer">
+
+  <div class="overlay" id="overlay"></div>
+</div>
+<form class="add-employee-form" id="addEmployeeForm">
+  <div class="form-group">
+    <label for="name">Ho va ten:</label>
+    <input type="text" id="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="email">Thu dien tu:</label>
+    <input type="email" name="email" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="address">Dia chi:</label>
+    <input type="text" id="address" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="phone">So dien thoai:</label>
+    <input type="text" id="phone" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Them</button>
+</form>
+</div>
+  </span>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {// ham chay su kien
+    let addEmployeeButton = document.getElementById('addEmployeeButton');
+    let overlay = document.getElementById('overlay');
+    let form = document.getElementById('addEmployeeForm');
+    let table = document.getElementById('employeeTable');
+
+    // Load data from localStorage
+    loadEmployeeData();
+
+    addEmployeeButton.addEventListener('click', function() {
+      if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block';
+        overlay.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+        overlay.style.display = 'none';
+      }
+    });
+
+    overlay.addEventListener('click', function() {
+      form.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Ngăn chặn gửi form mặc định
+      
+      // Lấy giá trị từ các input
+      let name = document.getElementById('name').value;
+      let email = document.getElementById('email').value;
+      let address = document.getElementById('address').value;
+      let phone = document.getElementById('phone').value;
+
+      // Add the new employee to the table
+      addEmployeeToTable(name, email, address, phone);
+      
+      // Save the employee data to localStorage
+      saveEmployeeData();
+
+      // Ẩn form và overlay sau khi thêm
+      form.style.display = 'none';
+      overlay.style.display = 'none';
+
+      // Xóa nội dung các input
+      form.reset();
+    });
+
+    function addEmployeeToTable(name, email, address, phone) {
+      // Tạo một hàng mới
+      let newRow = table.insertRow();
+    
+      // Thêm các ô vào hàng mới
+      let nameCell = newRow.insertCell(0);
+      let emailCell = newRow.insertCell(1);
+      let addressCell = newRow.insertCell(2);
+      let phoneCell = newRow.insertCell(3);
+      
+      // Gán giá trị cho các ô
+      nameCell.textContent = name;
+      emailCell.textContent = email;
+      addressCell.textContent = address;
+      phoneCell.textContent = phone;
+    }
+
+    function saveEmployeeData() {
+      let employeeData = [];
+      // Bắt đầu từ hàng thứ 2 để bỏ qua tiêu đề
+      for (let i = 1, row; row = table.rows[i]; i++) {
+        let rowData = {
+          name: row.cells[0].textContent,
+          email: row.cells[1].textContent,
+          address: row.cells[2].textContent,
+          phone: row.cells[3].textContent
+        };
+        employeeData.push(rowData);
+      }
+      localStorage.setItem('employeeData', JSON.stringify(employeeData));
+    }
+
+    function loadEmployeeData() {
+      let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [];
+      employeeData.forEach(employee => {
+        addEmployeeToTable(employee.name, employee.email, employee.address, employee.phone);
+      });
+    }
+    
+  });
+</script>
+
+</body>
+</html>
