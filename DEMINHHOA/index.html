@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="./js.js">
+<link rel="stylesheet" href="">
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+</head>
+<style>
+		label.error{
+			color: red;
+		}
+	    </style>
+
+<body>
+  <div class="container-sm bg-secondary-subtle border border-primary mb-4">
+    <div class="header d-flex justify-content-between align-items-center my-4">
+      <div class="logo fw-bolder fs-2">
+        Task List
+      </div>
+      <div>
+        <button class="custom text-center border rounded-3 p-2 shadow btn btn-primary btn-lg">+ Add Task</button>
+      </div>
+    </div>
+    <div class="main">
+      <form class=" p-3" id = "task-form">
+<div id="task-list">
+
+</div>
+     
+
+      </form>
+    </div>
+  </div>
+  <form class="container-sm bg-secondary-subte border border-primary h-50 " id="form-fill">
+   <header class="d-flex justify-content-between">
+<div class="left fw-bolder ">
+  Add Task
+</div>
+<div class="right">
+  <i class="fa-solid fa-x"></i>
+</div>
+   </header>
+   <main>
+<div class="mb-3">Task</div>
+
+  <input type="text"
+   class="form-control shadow-sm p-2 border rounded-4 border-body-tertiary mb-3"
+   placeholder="Type your task here"
+   name="task"
+   >
+   <div id="task-error" class="text-danger"></div>
+<div>priority</div>
+<div class="mb-5">
+<button    style="width: 70px;"class="custom text-center border rounded-3  btn btn-sm me-2 btn-outline-danger ">High</button>
+<button   style="width: 70px;"class="custom text-center border rounded-3   btn btn-sm me-2  btn-outline-warning">Medium</button>
+<button  style="width: 70px;"class="custom text-center border rounded-3 btn btn-sm bg-success text-light">Low</button>
+</div>  
+</main>
+
+<div class="d-flex justify-content-end mb-2">
+  <button  style="width: 70px;"class="custom text-center border rounded-3  f btn btn-sm bg-dark-subtle text-light" id="addBtn">Add</button>
+</div>
+</form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      fetch('data.json')// lay noi dung tu file data.jsoj
+      .then(response => response.json())// chuyen tu json sang javas
+      .then(data => {
+          const taskList = document.getElementById('task-list');
+          data.forEach(task => {//duyet qua tung phan tu
+              const taskElement = document.createElement('ul');// moi 1 task la tao ra 1 phan tu
+              taskElement.className = 'row d-flex justify-content-between list-unstyled fs-6 mb-3 border rounded-3 p-2 bg-light-subtle';
+         taskElement.innerHTML = `<li class="col">
+         <span>Task</span>
+         <br> <strong>${task.task}</strong>
+       </li>
+       <li class="col">
+         <span>Priority</span>
+         <br> <strong class="text-${task.priority === 'High' ? 'danger' : task.priority === 'Medium' ? 'warning' : 'success'}">${task.priority}</strong>
+       </li>
+       <li class="col d-flex align-items-center">${task.status}</li>
+       <li class="col d-flex align-items-center justify-content-center"><i class="fa-regular fa-circle"></i></li>
+       <li class="col ms-auto text-end">
+         <i class="fa-solid fa-pen-to-square me-3"></i>
+         <i class="fa-regular fa-trash-can"></i>
+       </li>
+       `;
+       taskList.appendChild(taskElement)
+          });
+      })
+
+      $().ready(function() {
+       
+       $("#form-fill").validate({
+         onfocusout: false,
+         onkeyup: false,
+         onclick: false,
+         rules: {
+           "task": {
+             required: true,         
+             maxlength: 100
+           },
+          
+         },
+         messages: {
+           "task": {
+             required: "Bắt buộc nhập username",          
+             maxlength: "Giới hạn nhập task là 100 từ"
+           },
+       
+         }
+       });
+       
+     });
+          
+      })
+      
+  
+   
+  </script>
+</body>
+
+</html>
