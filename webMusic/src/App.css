@@ -1,0 +1,31 @@
+body{
+  background-color: aqua;
+}
+#todo{
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#todo form {
+  width: 100%;
+  display: flex;
+
+}
+
+#todo form input{
+  flex:1 ;
+}
+.todo-container{
+  margin-top: 50px;
+
+}
+
+.todoItems{
+display: flex;
+background: wheat;
+padding: 10px 20px;
+border-radius: 5px;
+margin-bottom: 15px;
+justify-content: space-between;
+}

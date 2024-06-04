@@ -1,0 +1,33 @@
+[
+    {
+        "id":  1,
+        "task" :"Go to Gym",
+        "priority": "High",
+        "status": "To Do"
+    },
+    {
+      "id":  2,
+        "task": "Read a Book",
+        "priority": "Low",
+        "status": "Done"
+      },
+      {
+        "id":  3,
+        "task": "Go to Market",
+        "priority": "Medium",
+        "status": "In Progress"
+      },
+      {
+        "id":  4,
+        "task": "Learn JavaScript",
+        "priority": "High",
+        "status": "To Do"
+      },
+      {
+        "id":  5,
+        "task": "Complete Assignment",
+        "priority": "Medium",
+        "status": "In Progress"
+      }
+
+] 
