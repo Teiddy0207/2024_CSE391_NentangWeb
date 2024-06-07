@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task';
 
-const TaskList = ({ tasks, removeTask,  updateTask}) => {
+const TaskList = ({ tasks , removeTask,  updateTask}) => {
   return (
     <div >
       {tasks.map((task, index) => (
@@ -9,7 +9,8 @@ const TaskList = ({ tasks, removeTask,  updateTask}) => {
          index={index} 
          task={task} 
          removeTask={removeTask}
-          updateTask={updateTask} />
+         updateTask={updateTask}
+          />
       ))}
     </div>
   );

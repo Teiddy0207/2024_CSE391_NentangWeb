@@ -14,16 +14,18 @@ const AddTask = ({ addTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='mb-3'>
+   <div className='container'>
+   <form onSubmit={handleSubmit} className='d-flex mb-3'>
       <input 
         type="text" 
         value={task} 
         onChange={(e) => setTask(e.target.value)} 
-        placeholder="Add a new task" 
+        placeholder="TIÊU ĐỀ VIỆC CẦN LÀM... " 
         className='form-control'
       />
-      <button type="submit">Add</button>
+      <button type="submit"  className='btn btn-secondary'>THÊM MỚI</button>
     </form>
+    </div>
   );
 };
 

@@ -4,6 +4,8 @@ import Button from './Button';
 const Task = ({ task, index, removeTask, updateTask }) => {
   const [editing, setEditing] = useState(false)
   const [newTask, setNewTask] = useState(task)
+const [completed,setCompleted] = useState(false)
+
 
   const handleEdit = () => {
     setEditing(true)
@@ -17,17 +19,23 @@ const Task = ({ task, index, removeTask, updateTask }) => {
     setNewTask(e.target.value);
   };
 
+  const toggleCompletr = () => 
+    {
+      setCompleted(!completed)
+    }
 
   return (
     <div className='d-flex justify-content-between border border-black p-2 mb-3'>
       {editing ? (
         <input type="text" value={newTask} onChange={handleChange} />
       ) : (
-        <span>{task}</span>
+        <span onClick={toggleCompletr}
+        style={{textDecoration : completed ? 'line-through' : 'none'}}
+        >{task}</span>
       )}
       <div>
         {editing ? (
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave} type ="submit">Save</Button>
         ) : (
           <Button onClick={handleEdit}>Edit</Button>
         )}
