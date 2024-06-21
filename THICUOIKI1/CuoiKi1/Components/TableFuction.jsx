@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './TableFuction.css'
+import  Form  from './Form';
 const TableFuction = ({ addRow }) => {
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
@@ -29,15 +30,6 @@ const TableFuction = ({ addRow }) => {
 
 
 
-    const formStyle = {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'rgba(0, 0, 0, 0.1)', // Thay đổi màu nền ở đây
-        padding: '20px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    };
     return (
         <div className='wrap d-flex justify-content-between  p-3'>
             <div className='logo fs-3'>
@@ -49,26 +41,12 @@ const TableFuction = ({ addRow }) => {
             </div>
 
             {showForm && (
-                 <div style={formStyle} className='border border-info p-4 '>
-                <form action="">
-                <div>Ten: </div>
-                 <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleInputChange} className='form-control' />
-                 </form>
-                 <form action="">
-                 <div>Email: </div>
-                 <input type="text" placeholder="Email" name="email" value={formData.email} onChange={handleInputChange}className='form-control' />
-                 </form>
-                <form action="">
-                <div>Dia chi: </div>
-                 <input type="text" placeholder="Address" name="address" value={formData.address} onChange={handleInputChange} className='form-control'/>
-                 </form>
-                 <form action="">
-                 <div>SO DT: </div>
-                 <input type="text" placeholder="Phone" name="phone" value={formData.phone} onChange={handleInputChange} className='form-control'/>
-                 </form>
-                 <button className="btn bg-success" onClick={handleAdd}>Add</button>
-            
-               </div>
+        
+            <Form
+            formData = {formData}
+            handleInputChange = {handleInputChange}
+            handleAdd={handleAdd}
+            />
             )}
         </div>
     )
