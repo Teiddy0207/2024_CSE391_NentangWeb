@@ -1,0 +1,32 @@
+[
+    {
+      "name": "Nguyễn Văn A",
+      "email": "nguyenvana@example.com",
+      "address": "123 Đường Lê Lợi, Quận 1, TP.HCM",
+      "phone": "0123456789"
+    },
+    {
+      "name": "Trần Thị B",
+      "email": "tranthib@example.com",
+      "address": "456 Đường Nguyễn Huệ, Quận 3, TP.HCM",
+      "phone": "0987654321"
+    },
+    {
+      "name": "Lê Văn C",
+      "email": "levanc@example.com",
+      "address": "789 Đường Trần Hưng Đạo, Quận 5, TP.HCM",
+      "phone": "0912345678"
+    },
+    {
+      "name": "Phạm Thị D",
+      "email": "phamthid@example.com",
+      "address": "321 Đường Hai Bà Trưng, Quận 7, TP.HCM",
+      "phone": "0923456789"
+    },
+    {
+      "name": "Hoàng Văn E",
+      "email": "hoangvane@example.com",
+      "address": "654 Đường Nguyễn Trãi, Quận 10, TP.HCM",
+      "phone": "0934567890"
+    }
+  ]
