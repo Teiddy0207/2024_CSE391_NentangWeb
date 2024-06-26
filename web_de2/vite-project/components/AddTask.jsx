@@ -1,17 +1,60 @@
 import React, { useState } from 'react';
+import validator from 'validator';
 
 const AddTask = ({ addTask }) => {
     const [task, setTask] = useState('');
     const [priority, setPriority] = useState('low');
+    const [error, setError] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (task.trim()) {
-            addTask({ name: task, priority });
-            setTask('');
+    // const handleInputChange = (e) => {
+    //     const input = e.target.value;
+    //     const wordCount = input.trim().split(/\s+/).length;
+
+    //     if (wordCount > 10) {
+    //         setError('Task cannot be more than 10 words');
+    //         setIsButtonDisabled(true);
+    //     } else {
+    //         setError('');
+    //         setIsButtonDisabled(false);
+    //         setTask(input);
+    //     }
+    // };
+
+  
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     const wordCount = validator.trim(task).split(/\s+/).length;
+        
+    //     if (task.trim() && wordCount <= 10) {
+    //         addTask({ name: task, priority });
+    //         setTask('');
+    //     } else if (wordCount > 10) {
+    //         setError('Task cannot be more than 10 words');
+    //         setIsButtonDisabled(true);
+    //     }
+    // };
+
+    const handleInputChange = (e) => {
+        const input = e.target.value;
+        setTask(input);
+        if (input.length > 10) {
+            setError('Tên Task không được quá 100 kí tự.');
+                      setIsButtonDisabled(true);
+        } else {
+            setError('');
+            setIsButtonDisabled(false);
+            setTask(input);
         }
     };
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (task.trim() && task.length <= 10) {
+            addTask({ name: task, priority });
+            setTask('');
+            setPriority('low'); // Reset priority after adding task
+        }
+    };
     return (
         <div>
             <div className='container bg-secondary-subte border border-primary h-50' id="form-fill">
@@ -29,10 +72,11 @@ const AddTask = ({ addTask }) => {
                             className="form-control shadow-sm p-2 border rounded-4 border-body-tertiary mb-3"
                             placeholder="Type your task here"
                             value={task}
-                            onChange={(e) => setTask(e.target.value)}
+                            onChange={handleInputChange}
                         />
+                        {error && <div className="text-danger">{error}</div>}
                     </form>
-                    <div>priority</div>
+                    <div>Priority</div>
                     <div className="mb-2">
                         <button
                             type="button"
@@ -58,9 +102,12 @@ const AddTask = ({ addTask }) => {
                     </div>
                     <div className="d-flex justify-content-end mb-2">
                         <button className="custom text-center border rounded-3 f btn btn-sm bg-dark-subtle text-light"
-                            id="addBtn" type='submit' 
-                            onClick={handleSubmit} 
-                            >Add</button>
+                            id="addBtn" type='submit'
+                            onClick={handleSubmit}
+                            disabled={isButtonDisabled} // Disable button based on state
+                        >
+                            Add
+                        </button>
                     </div>
                 </main>
             </div>
