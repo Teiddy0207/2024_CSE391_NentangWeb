@@ -1,30 +1,61 @@
-import React, { useState } from 'react';
-// import { FaRegCheckCircle } from "react-icons/fa";
-// import { FaCircleNotch } from "react-icons/fa6";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { faC,faTrash ,faWrench,faCircleCheck} from '@fortawesome/free-solid-svg-icons';
 
 const Task = ({ index, task, removeTask, updateTask }) => {
-    const [editMode, setEditMode] = useState(false);// dung de xac dinh xem cos dang chinh sua l
-    const [updatedTask, setUpdatedTask] = useState(task.name);// luu tru noi dung chinh sua
-    //hook, luu tru dc gia tri khoi tao/ khi render lan dau se thiet lat updateTask voi ten cua nhiem vu
-    const [updatedPriority, setUpdatedPriority] = useState(task.priority); // luu tru do uu tien
+    const [editMode, setEditMode] = useState(false);
+    const [updatedTask, setUpdatedTask] = useState(task.name);
+    const [updatedPriority, setUpdatedPriority] = useState(task.priority);
+    const [percentage, setPercentage] = useState(0);
+    
+
+    useEffect(() => {
+        let interval;
+        if (updatedPriority === 'low') {
+            interval = setInterval(() => {
+                setPercentage(prevPercentage => {
+                    if (prevPercentage >= 100) {
+                        clearInterval(interval);
+                        return 100;
+                    }
+                    return prevPercentage + 7;
+                });
+            }, 70); // Update every 100ms
+        }
+        else if  (updatedPriority === 'medium') {
+            interval = setInterval(() => {
+                setPercentage(prevPercentage => {
+                    if (prevPercentage >= 50) {
+                        clearInterval(interval);
+                        return 50;
+                    }
+                    return prevPercentage + 7;
+                });
+            }, 70); // Update every 100ms
+        } 
+        
+        else {
+            setPercentage(0); // Reset when priority is not 'low'
+        }
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [updatedPriority]);
 
     const handleUpdate = () => {
-        updateTask(index, { name: updatedTask, priority: updatedPriority });// dc dung khi nhan nut saave, goi prop updateTask de cap nhat task
+        updateTask(index, { name: updatedTask, priority: updatedPriority });
         setEditMode(false);
     };
 
-//     updateTask: Đây là một prop được truyền vào component Task. Prop này là một hàm được định nghĩa trong component cha để cập nhật danh sách các công việc.
-// index: Đây là chỉ số (index) của công việc hiện tại trong danh sách các công việc. Nó được truyền vào component Task dưới dạng prop.
-// { name: updatedTask, priority: updatedPriority }: Đây là một đối tượng chứa các giá trị cập nhật của công việc, bao gồm:
-// name: updatedTask: Giá trị mới của tên công việc, được lưu trữ trong state updatedTask.
-// priority: updatedPriority: Giá trị mới của mức độ ưu tiên, được lưu trữ trong state updatedPriority.
     const handleInputChange = (e) => {
         setUpdatedTask(e.target.value);
     };
-    //Hàm này được sử dụng để cập nhật giá trị của tên công việc 
 
     const handlePriorityChange = (priority) => {
-        setUpdatedPriority(priority); // cap nhat muc do uu tien
+        setUpdatedPriority(priority);
     };
 
     const getStatusLabel = () => {
@@ -41,11 +72,11 @@ const Task = ({ index, task, removeTask, updateTask }) => {
     };
 
     return (
-        <div className='todoItems row align-items-center'>
+        <div className='todoItems row align-items-center mb-3 border rounded-pill bg-dark-subtle'>
             <div className="col">
                 <span>Task</span>
                 <br />
-                {editMode ? ( // neu dang duoc chinh sua 
+                {editMode ? (
                     <input
                         type="text"
                         value={updatedTask}
@@ -58,7 +89,7 @@ const Task = ({ index, task, removeTask, updateTask }) => {
             <div className="col">
                 <span>Priority</span>
                 <br />
-                {editMode ? ( // neu dang duoc chinh sua 
+                {editMode ? (
                     <>
                         <button
                             type="button"
@@ -89,29 +120,51 @@ const Task = ({ index, task, removeTask, updateTask }) => {
                 )}
             </div>
             <div className="col">
-             
                 <br />
                 <div>
-                    {editMode ? (
-                        <span>{getStatusLabel()}</span>
-                    ) : (
-                        <span>{getStatusLabel()}</span>
-                    )}
+                    <span>{getStatusLabel()}</span>
                 </div>
             </div>
             <div className="col d-flex align-items-center justify-content-center">
-                {/* Display appropriate icon based on priority */}
                 {updatedPriority === 'high' ? (
-                    <></> // Empty for Todo
+                    <></>
                 ) : updatedPriority === 'medium' ? (
-            <div className='col mt-4'>    
-                    {/* <FaCircleNotch /> */}
-                    Load 
-                    </div> 
+                    <div className='col mt-4'>
+                        {/* <FontAwesomeIcon icon={faC} /> */}
+                        <CircularProgressbar
+                            value={percentage}
+                          
+                            styles={buildStyles({
+                                rotation: 0.5, // Chỉ chạy một nửa vòng
+                                strokeLinecap: 'butt',
+                               
+                                pathTransitionDuration: 0.5,
+                                pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                                textColor: '#f88',
+                                trailColor: '#d6d6d6',
+                                backgroundColor: '#3e98c7',
+                            })}
+                            className='w-25 h-25'
+                        />
+                    </div>
                 ) : (
-                 <div className='col mt-4'>
-                    {/* <FaRegCheckCircle /> */}
-                    DONE 
+                    <div className='col mt-4' >
+                        <CircularProgressbar
+                            value={percentage}
+                            styles={buildStyles({
+                                rotation: 0.25,
+                                strokeLinecap: 'butt',
+                              
+                                pathTransitionDuration: 0.5,
+                                pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                                textColor: '#f88',
+                                trailColor: '#d6d6d6',
+                                backgroundColor: '#3e98c7',
+                               
+                            })}
+                            className=' w-25 h-25'
+                        />
+                      {/* <FontAwesomeIcon icon={faCircleCheck} /> */}
                     </div>
                 )}
             </div>
@@ -123,8 +176,8 @@ const Task = ({ index, task, removeTask, updateTask }) => {
                     </>
                 ) : (
                     <>
-                        <button className='btn' onClick={() => setEditMode(true)}>Edit</button>
-                        <button className='btn' onClick={() => removeTask(index)}>Delete</button>
+                        <button className='btn' onClick={() => setEditMode(true)}><FontAwesomeIcon icon={faWrench} className='text-warning' /></button>
+                        <button className='btn' onClick={() => removeTask(index)}><FontAwesomeIcon icon={faTrash} className='text-danger'/></button>
                     </>
                 )}
             </div>

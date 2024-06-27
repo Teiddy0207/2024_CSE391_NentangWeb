@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Form from './Form'
 
 
-const TableFuction = ({ addRow , showData  }) => {
-
+// const TableFuction = ({ addRow , showData  }) => {
+    const TableFuction = ({ addRow   }) => {
     const [showForm, setShowForm] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
@@ -42,7 +42,8 @@ const TableFuction = ({ addRow , showData  }) => {
             <div className='button '>
                 <button className='btn bg-danger' >Delete</button>
                 <button className='btn bg-success ms-2' onClick={() => setShowForm(true)}>Add New Employee</button>
-                <button className='btn bg-warning  ms-2' onClick={showData}>Hien thi du lieu</button>
+                {/* <button className='btn bg-warning  ms-2' onClick={showData}>Hien thi du lieu</button> */}
+                <button className='btn bg-warning  ms-2'>Hien thi du lieu</button>
             </div>
             {showForm && (
                 <Form

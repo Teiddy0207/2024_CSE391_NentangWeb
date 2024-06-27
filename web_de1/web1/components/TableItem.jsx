@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 const TableItem = ({ row, index, removeRow, updateRow }) => {
 
     const [editing, setEditing] = useState(false);
-    const [newRow, setNewRow] = useState({ ...row });
+    const [newRow, setNewRow] = useState({ ...row });// khoi tao gia tri mac dinh, sao chep doi tuong trong row vao doi tuong moi va dat tai newRow
+
+
 
     const handleRemove = () => {
         removeRow(index)
@@ -18,8 +20,9 @@ const TableItem = ({ row, index, removeRow, updateRow }) => {
         setEditing(false)
     }
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewRow({ ...newRow, [name]: value })
+        const { name, value } = e.target; 
+        setNewRow({ ...newRow, [name]: value } ) // cap nhat gia tri NewRow bang cách sao chép cái giá trị mới vào
+        console.log(newRow)
     }
 
     return (

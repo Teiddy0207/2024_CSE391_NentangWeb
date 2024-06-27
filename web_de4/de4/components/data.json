@@ -1,0 +1,17 @@
+[
+    {
+        "tenCongViec": "Công việc 1",
+        "thoiGianBatDau": "2024-06-01",
+        "thoiGianKetThuc": "2024-06-05"
+    },
+    {
+        "tenCongViec": "Công việc 2",
+        "thoiGianBatDau": "2024-06-06",
+        "thoiGianKetThuc": "2024-06-10"
+    },
+    {
+        "tenCongViec": "hop hoi dong quan tri",
+        "thoiGianBatDau": "2024-06-06",
+        "thoiGianKetThuc": "2024-06-10"
+    }
+]

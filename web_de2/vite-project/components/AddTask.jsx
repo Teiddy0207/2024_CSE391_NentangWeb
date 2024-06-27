@@ -35,24 +35,51 @@ const AddTask = ({ addTask }) => {
     //     }
     // };
 
+    // const handleInputChange = (e) => {
+    //     const input = e.target.value;
+    //     setTask(input);
+    //     if (input.length > 10) {
+    //         setError('Tên Task không được quá 10 kí tự.');
+    //                   setIsButtonDisabled(true);
+    //     } else {
+    //         setError('');
+    //         setIsButtonDisabled(false);
+    //         setTask(input);
+    //     }
+    // };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (task.trim() && task.length <= 10) {
+    //         addTask({ name: task, priority });
+    //         setTask('');
+    //         setPriority('low'); // Reset priority after adding task
+    //     }
+    // };
+
     const handleInputChange = (e) => {
         const input = e.target.value;
         setTask(input);
         if (input.length > 10) {
-            setError('Tên Task không được quá 100 kí tự.');
-                      setIsButtonDisabled(true);
+            setError('Tên Task không được quá 10 kí tự.');
+            setIsButtonDisabled(true);
         } else {
             setError('');
             setIsButtonDisabled(false);
             setTask(input);
         }
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (task.trim() && task.length <= 10) {
+        if (validator.isEmpty(task.trim())) {
+            setError('Vui lòng nhập tên task.');
+            setIsButtonDisabled(true);
+        } else if (task.length <= 10) {
             addTask({ name: task, priority });
             setTask('');
             setPriority('low'); // Reset priority after adding task
+            setError('');
+            setIsButtonDisabled(false);
         }
     };
     return (

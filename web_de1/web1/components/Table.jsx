@@ -21,19 +21,26 @@ const Table = () => {
     setRows(newRow);
   };
 
-  useEffect(() => {
-    if (isDataVisible) {
-      setRows(data);
-    }
-  }, [isDataVisible]);
+  // useEffect(() => {
+  //   if (isDataVisible) {
+  //     setRows(data);
+  //   }
+  // }, [isDataVisible]);
 
-  const showData = () => {
-    setIsDataVisible(true);
-  };
+  // const showData = () => {
+  //   setIsDataVisible(true);
+  // };
+
+  useEffect(() => {
+   
+      setRows(data);
+    
+  }, []);
 
   return (
     <div>
-      <TableFuction addRow={addRow} removeRow={removeRow} showData={showData} />
+      {/* <TableFuction addRow={addRow} removeRow={removeRow} showData={showData} /> */}
+      <TableFuction addRow={addRow} removeRow={removeRow}  />
       <TableList rows={rows} removeRow={removeRow} updateRow={updateRow} />
     </div>
   );
