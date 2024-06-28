@@ -7,17 +7,13 @@ const Form = ({ formData, handleInput, handleAdd }) => {
 
     const validate = () => {
         let newErrors = {};
-        if (validator.isEmpty(formData.name)) newErrors.name = "Tên là bắt buộc";
-        if (validator.isEmpty(formData.email)) {
-          newErrors.email = "Email là bắt buộc";
-        } else if (!validator.isEmail(formData.email)) {
-          newErrors.email = "Email không hợp lệ";
+        if (validator.isEmpty(formData.name)) newErrors.name = "Name is requied!! , you must fill in the blank";
+        if(formData.name.length > 30){
+          newErrors.name = "to Long , please write less than 30 word";
         }
-        if (validator.isEmpty(formData.address)) newErrors.address = "Địa chỉ là bắt buộc";
-        if (validator.isEmpty(formData.phone)) {
-          newErrors.phone = "Số điện thoại là bắt buộc";
-        } else if (!validator.isMobilePhone(formData.phone, 'any')) {
-          newErrors.phone = "Số điện thoại không hợp lệ";
+        if (validator.isEmpty(formData.address)) newErrors.address = "Address is required!!, you must fill in the blank";
+        if(formData.address.length > 50){
+          newErrors.address = "to Long , please write less than 50 word";
         }
         return newErrors;
       };
@@ -34,9 +30,9 @@ const Form = ({ formData, handleInput, handleAdd }) => {
     return (
         <div className={`form-container bg-info ${isVisible ? '' : 'hidden'}`}>
             <form className="form-content">
-                <div className='d-flex justify-content-between'>
-                    <div>Thêm nhân viên</div>
-                    <button onClick={() => setIsVisible(false)} style={{ cursor: 'pointer' }}>X</button>
+                <div className='d-flex justify-content-between '>
+                    <div>Add Store</div>
+                    <button onClick={() => setIsVisible(false)} style={{ cursor: 'pointer' }} className='btn'>X</button>
                 </div>
 
                 <div className="mb-3">
@@ -52,19 +48,7 @@ const Form = ({ formData, handleInput, handleAdd }) => {
                     />
                       {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Email"
-                        name="email"
-                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                        value={formData.email}
-                        onChange={handleInput}
-                    />
-                      {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                </div>
+                
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Địa chỉ:</label>
                     <input
@@ -79,19 +63,22 @@ const Form = ({ formData, handleInput, handleAdd }) => {
                          {errors.address && <div className="invalid-feedback">{errors.address}</div>}
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">Số điện thoại:</label>
+                    <label htmlFor="phone" className="form-label">Lan cuoi cap nhat:</label>
                     <input
                         type="text"
-                        id="phone"
-                        placeholder="Phone"
-                        name="phone"
-                        className={`form-control ${errors.phone ? 'is-invalid' : ''}`} 
-                        value={formData.phone}
+                        id="last"
+                        placeholder="Lan cuoi cap nhat"
+                        name="last"
+                        className={`form-control ${errors.last ? 'is-invalid' : ''}`} 
+                        value={formData.last}
                         onChange={handleInput}
                     />
-                                {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
+                                {errors.last && <div className="invalid-feedback">{errors.last}</div>}
                 </div>
+           <div className='d-flex justify-content-end'>
+               <div className='btn'>Cancel</div>
                 <button type="button" className="btn btn-success" onClick={handleAddWithValidation}>Add</button>
+                </div>
             </form>
         </div>
     );

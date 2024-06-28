@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faC, faCircle, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
 const TableItem = ({ row, index, removeRow, updateRow }) => {
 
     const [editing, setEditing] = useState(false);
@@ -20,33 +21,23 @@ const TableItem = ({ row, index, removeRow, updateRow }) => {
         setEditing(false)
     }
     const handleChange = (e) => {
-        const { name, value } = e.target; 
-        setNewRow({ ...newRow, [name]: value } ) // cap nhat gia tri NewRow bang cách sao chép cái giá trị mới vào
+        const { name, value } = e.target;
+        setNewRow({ ...newRow, [name]: value }) // cap nhat gia tri NewRow bang cách sao chép cái giá trị mới vào
         console.log(newRow)
     }
 
     return (
-
-
         <tr>
-            <td>
-                <input type="checkbox" />
+            <td className='d-flex'>
+                <button className="btn btn-danger ms-2" onClick={handleRemove} ><FontAwesomeIcon icon={faTrash} /></button>
+                <button className='btn btn-warning'><FontAwesomeIcon icon={faWrench} /></button>
+                <button className="btn btn-success" onClick={handleEdit} ><FontAwesomeIcon icon={faC} /></button>
             </td>
-            <td>{editing ? <input type="text" name="name" value={newRow.name} onChange={handleChange} /> : row.name}</td>
-            <td>{editing ? <input type="text" name="email" value={newRow.email} onChange={handleChange} /> : row.email}</td>
-            <td >{editing ? <input type="text" name="address" value={newRow.address} onChange={handleChange} /> : row.address} </td>
-            <td> {editing ? <input type="text" name="phone" value={newRow.phone} onChange={handleChange} /> : row.phone}</td>
-            <td className='d-flex justify-content-end'>
-                {editing ? (
-                    <>
-                        <button className="btn btn-success" onClick={handleSave}>Save</button>
-                        <button className="btn btn-secondary ms-2" onClick={() => setEditing(false)}>Cancel</button>
-                    </>
-                ) : (
-                    <button className="btn btn-warning" onClick={handleEdit} >Edit</button>
-                )}
-                <button className="btn btn-danger ms-2" onClick={handleRemove} >Delete</button>
-            </td>
+            <td>{row.stt}</td>
+            <td>{row.name}</td>
+            <td>{row.address}</td>
+            <td> {row.last}</td>
+
         </tr>
 
 

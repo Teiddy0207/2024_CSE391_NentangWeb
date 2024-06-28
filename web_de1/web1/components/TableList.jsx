@@ -1,32 +1,31 @@
 import React from 'react'
 import TableItem from './TableItem'
 
-const TableList = ({rows, removeRow ,updateRow}) => {
+const TableList = ({ rows }) => {
   return (
-    <div>
+    <div className='mb-5'>
 
-<table className="table table-striped table-hover">
+      <table className="container table table-striped table-hover">
         <thead className="thead-dark">
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
+         
+            <th scope="col">Action</th>
+            <th>stt</th>
+            <th scope="col">Manager</th>
             <th scope="col">Address</th>
-            <th scope="col">Phone</th>
-            <th scope="col" className='d-flex justify-content-end'>Actions</th>
+            <th scope="col" className='d-flex flex-end'>Last update</th>
+
           </tr>
         </thead>
         <tbody>
-        
-        {rows.map((row,index) =>(
+
+          {rows.map((row, index) => (
             <TableItem
-            ket = {index}
-            row = {row}
-            index = {index}
-            removeRow = {removeRow}
-            updateRow = {updateRow} 
+              ket={index}
+              row={row}
+              index={index}
             />
-        ))}
+          ))}
         </tbody>
       </table>
 
